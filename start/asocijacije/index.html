@@ -254,54 +254,65 @@
     
      /* Mobile optimizations */
     @media (max-width: 600px) {
-      .game-container {
-        padding: 15px;
-        width: 95%;
-      }
-      
-      .tile {
-        height: 60px;
-        font-size: 14px;
-      }
-      
-      input[type="text"] {
-        padding: 10px;
-        font-size: 14px;
-      }
-      
-      button {
-        padding: 8px 12px;
-        font-size: 14px;
-      }
-      
-      #timer {
-        font-size: 18px;
-        padding: 5px 10px;
-      }
-      
-      .input-group {
-        flex-direction: column;
-      }
-      
-      .input-column {
-        width: 100%;
-        margin-bottom: 10px;
-      }
-      
-      #inputFinal {
-        max-width: 100%;
-      }
-    }
-
-    @media (max-width: 400px) {
-      .tile {
-        height: 50px;
-      }
-      
-      .question {
-        font-size: 18px;
-      }
-    }
+  .game-container {
+    padding: 15px;
+    width: 95%;
+  }
+  
+  .tile {
+    height: 60px;
+    font-size: 14px;
+  }
+  
+  input[type="text"] {
+    padding: 10px;
+    font-size: 14px;
+  }
+  
+  button {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+  
+  #timer {
+    font-size: 18px;
+    padding: 5px 10px;
+  }
+  
+  /* Keep columns side by side with horizontal scrolling */
+  .columns-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    display: block;
+    margin: 15px 0;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .column {
+    display: inline-block;
+    vertical-align: top;
+    width: 180px; /* Fixed width for mobile */
+    margin-right: 10px;
+  }
+  
+  .input-group {
+    overflow-x: auto;
+    white-space: nowrap;
+    display: block;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .input-column {
+    display: inline-block;
+    vertical-align: top;
+    width: 180px; /* Fixed width for mobile */
+    margin-right: 10px;
+  }
+  
+  #inputFinal {
+    max-width: 100%;
+  }
+}
   </style>
 </head>
 <body>
