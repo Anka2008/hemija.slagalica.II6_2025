@@ -146,11 +146,13 @@
     
     @media (max-width: 600px) {
       .quiz-container {
-        padding: 20px;
+        padding: 15px;
+        width: 95%;
       }
       
       .question {
-        font-size: 22px;
+        font-size: 18px;
+        margin-bottom: 15px;
       }
       
       .answers {
@@ -158,13 +160,24 @@
       }
       
       .answer {
-        padding: 15px;
-        font-size: 18px;
+        padding: 12px;
+        font-size: 16px;
       }
       
       #timer {
-        font-size: 20px;
-        padding: 6px 12px;
+        font-size: 18px;
+        padding: 5px 10px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .question {
+        font-size: 16px;
+      }
+      
+      .answer {
+        padding: 10px;
+        font-size: 14px;
       }
     }
   </style>

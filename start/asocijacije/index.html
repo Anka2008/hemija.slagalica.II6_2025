@@ -252,23 +252,31 @@
       color: #6a4c93;
     }
     
+     /* Mobile optimizations */
     @media (max-width: 600px) {
       .game-container {
-        padding: 20px;
-      }
-      
-      .columns-container {
-        flex-direction: column;
-        gap: 15px;
-      }
-      
-      .column {
-        width: 100%;
+        padding: 15px;
+        width: 95%;
       }
       
       .tile {
         height: 60px;
-        font-size: 16px;
+        font-size: 14px;
+      }
+      
+      input[type="text"] {
+        padding: 10px;
+        font-size: 14px;
+      }
+      
+      button {
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+      
+      #timer {
+        font-size: 18px;
+        padding: 5px 10px;
       }
       
       .input-group {
@@ -277,21 +285,21 @@
       
       .input-column {
         width: 100%;
+        margin-bottom: 10px;
       }
       
-      input[type="text"] {
-        padding: 12px;
-        font-size: 16px;
+      #inputFinal {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .tile {
+        height: 50px;
       }
       
-      button {
-        padding: 10px 15px;
-        font-size: 16px;
-      }
-      
-      #timer {
-        font-size: 20px;
-        padding: 6px 12px;
+      .question {
+        font-size: 18px;
       }
     }
   </style>

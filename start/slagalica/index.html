@@ -207,35 +207,38 @@
     /* Responsive design */
     @media (max-width: 600px) {
       .container {
-        padding: 20px;
-        max-width: 100%;
+        padding: 15px;
+        width: 95%;
       }
-
+      
       .letter-box {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+      }
+      
+      .word-input {
+        padding: 10px 15px;
+        font-size: 14px;
+      }
+      
+      .btn {
         width: 40px;
         height: 40px;
-        font-size: 20px;
-      }
-
-      .grid {
-        gap: 8px;
-      }
-
-      .input-area {
-        max-width: 100%;
-        white-space: nowrap;
-        gap: 8px;
-      }
-
-      .word-input {
-        font-size: 14px;
-        padding: 12px 15px;
-      }
-
-      .btn {
-        width: 44px;
-        height: 44px;
         font-size: 16px;
+      }
+      
+      #timer {
+        font-size: 18px;
+        padding: 5px 10px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .letter-box {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
       }
     }
   </style>

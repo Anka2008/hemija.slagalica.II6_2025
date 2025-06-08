@@ -146,36 +146,39 @@
   }
   
   @media (max-width: 600px) {
-    .game-container {
-      flex-direction: column;
-      padding: 20px;
-    }
-    
-    .item {
-        font-size: 14px;  /* Manji font na mobilnim */
-        min-width: 140px;  /* Smanjena širina */
-        padding: 10px 12px;  /* Manji padding */
+      .game-container {
+        flex-direction: column;
+        padding: 15px;
+        width: 95%;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+      
+      .column {
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 10px;
+      }
+      
+      .item {
+        padding: 10px 12px;
+        font-size: 14px;
+        min-width: 140px;
+      }
+      
+      #timer {
+        font-size: 18px;
+        padding: 5px 10px;
+      }
     }
 
-    .game-container {
-        overflow-x: auto;  /* Omogućava horizontalni scroll */
-        white-space: nowrap;  /* Sprečava prelamanje kolona */
-        padding-bottom: 20px;  /* Prostor za scroll */
+    @media (max-width: 400px) {
+      .item {
+        padding: 8px 10px;
+        font-size: 12px;
+        min-width: 120px;
+      }
     }
-    .column {
-        display: inline-block;  /* Stavlja kolone u isti red */
-        vertical-align: top;
-    }
-    .item {
-        min-width: 160px;  /* Još uvek sprečava prelamanje */
-        white-space: nowrap;
-    }
-    
-    #timer {
-      font-size: 18px;
-      padding: 8px 12px;
-    }
-  }
 
   
 </style>
