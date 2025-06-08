@@ -3,85 +3,96 @@
 <head>
 <meta charset="UTF-8" />
 <title>Spojnice</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap" rel="stylesheet" />
 <style>
+  * {
+    box-sizing: border-box;
+  }
+  
   body {
     margin: 0;
+    padding: 0;
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #1d3557, #457b9d);
+    font-weight: 700;
+    background: linear-gradient(135deg, #6a4c93 0%, #ff6b35 100%);
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    color: #1d3557;
+    color: #333;
   }
+  
   .game-container {
-  background: #f1faee;
-  padding: 30px;
-  border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-  display: flex;
-  gap: 15px; /* razmak između kolona */
-  margin: 50px auto; /* centriranje */
-  width: fit-content; /* širina kontejnera koliko treba za sadržaj */
-}
-
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    display: flex;
+    gap: 20px;
+    margin: 20px;
+    width: fit-content;
+    max-width: 100%;
+  }
+  
   .column {
     display: flex;
     flex-direction: column;
     gap: 15px;
   }
-  .item {
+  
+.item {
     background: #ffffff;
-    padding: 15px;
-    border-radius: 10px;
-    border: 2px solid #ccc;
+    padding: 15px 20px;
+    border-radius: 15px;
+    border: 2px solid #ddd;
     font-size: 18px;
     text-align: center;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.2s ease;
     user-select: none;
-    min-width: 120px; /* ili 100px, možeš prilagoditi */
-  }
+    min-width: 180px;  /* Povećano za duži tekst */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    white-space: nowrap;  /* Sprečava prelamanje */
+    overflow: hidden;     /* Skriva predugačak tekst */
+    text-overflow: ellipsis;  /* Dodaje "..." ako tekst ne stane */
+}
+  
   .item:hover {
-    background: #a8dadc;
-    border-color: #1d3557;
+    border-color: #6a4c93;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   }
+  
   .item.correct {
     background: #4caf50;
     color: #fff;
     border-color: #4caf50;
     pointer-events: none;
+    transform: none;
   }
+  
   .item.wrong {
     background: #e63946;
     color: #fff;
     border-color: #e63946;
+    pointer-events: none;
+    transform: none;
   }
+  
   #timer {
     position: fixed;
-    top: 10px;
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    user-select: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    top: 20px;
     right: 20px;
-    font-size: 22px;
-    font-weight: bold;
-    color: #f1faee;
-    padding: 8px 14px;
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.5);
-    user-select: none;
   }
-  #score {
-    position: fixed;
-    top: 10px;
-    left: 20px;
-    font-size: 22px;
-    font-weight: bold;
-    color: #f1faee;
-    padding: 8px 14px;
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.5);
-    user-select: none;
-  }
-
+  
   .modal {
     position: fixed;
     top: 0; left: 0;
@@ -93,34 +104,83 @@
     display: none;
     z-index: 99;
   }
+  
   .modal-content {
-    background: #f1faee;
+    background: white;
     padding: 30px;
     border-radius: 20px;
     text-align: center;
-    width: 300px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
   }
+  
   .modal-content h2 {
+    color: #6a4c93;
     margin-bottom: 20px;
+    font-size: 24px;
   }
-  .modal-content button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    background: #457b9d;
-    color: #fff;
+  
+  .modal-content p {
+    margin-bottom: 25px;
     font-size: 18px;
-    cursor: pointer;
   }
+  
+  .modal-content button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(45deg, #6a4c93, #ff6b35);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(106, 76, 147, 0.4);
+  }
+  
   .modal-content button:hover {
-    background: #1d3557;
+    background: linear-gradient(45deg, #ff6b35, #6a4c93);
+    box-shadow: 0 6px 20px rgba(106, 76, 147, 0.6);
+    transform: translateY(-2px);
+  }
+  
+  @media (max-width: 600px) {
+    .game-container {
+      flex-direction: column;
+      padding: 20px;
+    }
+    
+    .item {
+        font-size: 14px;  /* Manji font na mobilnim */
+        min-width: 140px;  /* Smanjena širina */
+        padding: 10px 12px;  /* Manji padding */
+    }
+
+    .game-container {
+        overflow-x: auto;  /* Omogućava horizontalni scroll */
+        white-space: nowrap;  /* Sprečava prelamanje kolona */
+        padding-bottom: 20px;  /* Prostor za scroll */
+    }
+    .column {
+        display: inline-block;  /* Stavlja kolone u isti red */
+        vertical-align: top;
+    }
+    .item {
+        min-width: 160px;  /* Još uvek sprečava prelamanje */
+        white-space: nowrap;
+    }
+    
+    #timer {
+      font-size: 18px;
+      padding: 8px 12px;
+    }
   }
 </style>
 </head>
 <body>
 
 <div id="timer">90</div>
-<div id="score">Bodovi: 0</div>
 
 <div class="game-container">
   <div class="column" id="leftColumn"></div>
@@ -322,10 +382,6 @@ let timerInterval = setInterval(updateTimer, 1000);
     }
   }
 
-  function updateScore() {
-    document.getElementById("score").innerText = "Bodovi: " + score;
-  }
-
   // Kreiraj levu kolonu
   leftItems.forEach(item => {
     const div = document.createElement("div");
@@ -347,18 +403,18 @@ let timerInterval = setInterval(updateTimer, 1000);
   function selectLeft(el) {
     if (gameEnded) return;
     if (el.classList.contains("correct")) return;
-    if (selectedLeft) selectedLeft.style.borderColor = "#ccc";
+    if (selectedLeft) selectedLeft.style.borderColor = "#ddd";
     selectedLeft = el;
-    el.style.borderColor = "#1d3557";
+    el.style.borderColor = "#6a4c93";
     checkPair();
   }
 
   function selectRight(el) {
     if (gameEnded) return;
     if (el.classList.contains("correct")) return;
-    if (selectedRight) selectedRight.style.borderColor = "#ccc";
+    if (selectedRight) selectedRight.style.borderColor = "#ddd";
     selectedRight = el;
-    el.style.borderColor = "#1d3557";
+    el.style.borderColor = "#6a4c93";
     checkPair();
   }
 
@@ -374,7 +430,6 @@ let timerInterval = setInterval(updateTimer, 1000);
       selectedLeft.style.pointerEvents = "none";
       selectedRight.style.pointerEvents = "none";
       score += 10;
-      updateScore();
     } else {
       // Pogrešan odgovor - trajno onemogući klik
       selectedLeft.classList.add("wrong");
@@ -384,8 +439,8 @@ let timerInterval = setInterval(updateTimer, 1000);
     }
 
     // Vraćamo boju ivice na početnu (možeš i dodati animaciju ako želiš)
-    selectedLeft.style.borderColor = "#ccc";
-    selectedRight.style.borderColor = "#ccc";
+    selectedLeft.style.borderColor = "#ddd";
+    selectedRight.style.borderColor = "#ddd";
 
     // Resetujemo selekcije
     selectedLeft = null;
@@ -409,7 +464,7 @@ function endGame() {
   clearInterval(timerInterval);
   localStorage.setItem('spojniceScore', score);
   localStorage.setItem('score', score);  // Čuvanje rezultata u localStorage
-  document.getElementById("finalScore").innerText = "Osvojili ste " + score + " bodova.";
+  document.getElementById("finalScore").innerText = `Osvojili ste ${score+timeLeft} bodova`;
   document.getElementById("resultModal").style.display = "flex";
 }
 

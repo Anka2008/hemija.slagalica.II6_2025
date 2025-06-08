@@ -2,623 +2,674 @@
 <html lang="sr">
 <head>
   <meta charset="UTF-8" />
-  <title>Igra Asocijacije - Hemija</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Asocijacije</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap" rel="stylesheet" />
   <style>
+    * {
+      box-sizing: border-box;
+    }
+    
     body {
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #1b2735, #090a0f);
-  color: #e0e6f1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 100vh;
-  padding: 20px 10px;
-  transition: background 1s ease-in-out;
-  position: relative;
-}
-
-.container {
-  background: #1f2a44;
-  padding: 30px 40px;
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0, 77, 179, 0.4);
-  max-width: 900px;
-  width: 100%;
-  text-align: center;
-}
-
-h1 {
-  font-weight: 700;
-  font-size: 2.4rem;
-  margin-bottom: 15px;
-  color: #b0c4ff;
-  text-shadow: 0 0 8px #3a7bd5;
-}
-
-p {
-  font-size: 1.2rem;
-  margin-bottom: 25px;
-  color: #a8baff;
-}
-
-table {
-  border-collapse: separate;
-  border-spacing: 12px 12px;
-  margin: 20px auto 30px auto;
-  width: 100%;
-  table-layout: fixed;
-}
-
-td {
-  background: #2a3a62;
-  border-radius: 10px;
-  height: 90px;
-  font-size: 20px;
-  font-weight: 700;
-  text-align: center;
-  color: transparent;
-  position: relative;
-  box-shadow: 0 2px 8px rgba(0, 0, 50, 0.7);
-  user-select: none;
-  cursor: default;
-  transition: color 0.3s ease;
-}
-
-td > div.cover {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #3a7bd5, #00d2ff);
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 800;
-  font-size: 28px;
-  color: white;
-  cursor: pointer;
-  user-select: none;
-  transition: background 0.3s ease;
-}
-td > div.cover:hover {
-  background: linear-gradient(135deg, #1c4dd4, #00a1ff);
-}
-
-input[type='text'] {
-  width: 90%;
-  max-width: 400px;
-  padding: 12px 15px;
-  font-size: 18px;
-  border-radius: 8px;
-  border: none;
-  background-color: #182746;
-  color: #cbd4f7;
-  box-shadow: inset 0 0 5px #3a7bd5;
-  margin: 12px auto;
-  display: block;
-  transition: box-shadow 0.3s ease;
-}
-input[type='text']:focus {
-  outline: none;
-  box-shadow: 0 0 8px #00a1ff;
-  background-color: #1f2a44;
-}
-
-.check-button {
-  padding: 12px 28px;
-  font-size: 18px;
-  background: linear-gradient(135deg, #3a7bd5, #00d2ff);
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  margin: 8px 12px;
-  cursor: pointer;
-  font-weight: 700;
-  box-shadow: 0 5px 12px rgba(0, 210, 255, 0.7);
-  transition: background 0.25s ease, box-shadow 0.25s ease;
-  user-select: none;
-}
-.check-button:hover {
-  background: linear-gradient(135deg, #1e5ac8, #00a4ff);
-  box-shadow: 0 8px 20px rgba(0, 164, 255, 0.9);
-}
-
-#toast-container {
-  position: fixed;
-  top: 25px;
-  right: 25px;
-  z-index: 9999;
-  max-width: 280px;
-}
-
-.toast {
-  min-width: 250px;
-  padding: 16px 24px;
-  border-radius: 14px;
-  font-weight: 700;
-  color: white;
-  box-shadow: 0 6px 16px rgba(0, 110, 255, 0.5);
-  opacity: 0;
-  animation: fadeInOut 3s forwards;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-.toast-success { background-color: #4caf50; }
-.toast-warning { background-color: #ffb300; color: black; }
-.toast-error   { background-color: #e53935; }
-
-@keyframes fadeInOut {
-  0% {opacity: 0; transform: translateX(100%);}
-  10%, 90% {opacity: 1; transform: translateX(0);}
-  100% {opacity: 0; transform: translateX(100%);}
-}
-
-#timer {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #0057e7cc;
-  padding: 12px 26px;
-  font-size: 22px;
-  font-weight: 700;
-  border-radius: 14px;
-  color: #cde2ff;
-  user-select: none;
-  z-index: 10000;
-  font-family: monospace;
-  box-shadow: 0 0 14px #007fffcc;
-  text-shadow: 0 0 6px #00b3ffcc;
-}
-
-@keyframes fadeSlideUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 10001;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background: rgba(0,0,50,0.85);
-}
-
-.modal-content {
-  background: #1f2a44;
-  margin: 12% auto;
-  padding: 30px 40px;
-  border-radius: 18px;
-  width: 90%;
-  max-width: 500px;
-  text-align: center;
-  color: #cde2ff;
-  box-shadow: 0 8px 20px rgba(0,0,100,0.7);
-}
-
-.modal-content h2 {
-  font-size: 2rem;
-  margin-bottom: 16px;
-}
-
-.modal-content p {
-  font-size: 1.4rem;
-  margin-bottom: 28px;
-}
-
-.modal-content button {
-  padding: 14px 28px;
-  font-size: 18px;
-  background: linear-gradient(135deg, #3a7bd5, #00d2ff);
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: 700;
-  box-shadow: 0 5px 14px rgba(0, 210, 255, 0.7);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
-}
-
-.modal-content button:hover {
-  background: linear-gradient(135deg, #1e5ac8, #00a4ff);
-  box-shadow: 0 8px 20px rgba(0, 164, 255, 0.9);
-}
-
-.modal-content h3 {
-  margin-top: 0;
-  margin-bottom: 20px;
-  color: #a3b8ff;
-  font-weight: 700;
-  text-shadow: 0 0 8px #3a7bd5;
-}
-
-#solutionsList {
-  list-style-type: none;
-  padding: 0;
-  margin-bottom: 30px;
-  font-size: 18px;
-  color: #d4dbff;
-  text-align: left;
-}
-
-#solutionsList li {
-  background: #24335a;
-  margin-bottom: 10px;
-  padding: 12px 18px;
-  border-radius: 14px;
-  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.6);
-  font-weight: 600;
-  display: flex;
-  justify-content: space-between;
-}
-
-#solutionsList li strong {
-  color: #85a1ff;
-  min-width: 90px;
-  text-shadow: 0 0 5px #3a7bd5;
-}
-
-
-
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6a4c93 0%, #ff6b35 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #333;
+    }
+    
+    .game-container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      width: 700px;
+      max-width: 95%;
+      text-align: center;
+    }
+    
+    .columns-container {
+      display: flex;
+      justify-content: space-between;
+      margin: 30px 0;
+    }
+    
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 23%;
+    }
+    
+    .tile {
+      background: white;
+      height: 80px;
+      width: 100%;
+      border-radius: 10px;
+      border: 2px solid #ddd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .tile:hover {
+      border-color: #6a4c93;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .tile .cover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #6a4c93, #ff6b35);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    
+    .tile.revealed .cover {
+      display: none;
+    }
+    
+    .input-group {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .input-column {
+      width: 23%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    input[type="text"] {
+      padding: 15px;
+      font-size: 18px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      text-align: center;
+      color: #2D2D2D;
+      font-family: 'Arial', sans-serif;
+      width: 100%;
+    }
+    
+    input[type="text"]:focus {
+      border: 2px solid #6a4c93;
+      outline: none;
+    }
+    
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    
+    button {
+      padding: 12px 20px;
+      font-size: 18px;
+      background-color: #6a4c93;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    button:hover {
+      background-color: #5a3c83;
+      transform: translateY(-2px);
+    }
+    
+    button:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+    
+    .correct {
+      background-color: #4caf50 !important;
+      color: white !important;
+      border-color: #4caf50 !important;
+    }
+    
+    .wrong {
+      background-color: #e63946 !important;
+      color: white !important;
+      border-color: #e63946 !important;
+    }
+    
+    #timer {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 8px 14px;
+      border-radius: 10px;
+      z-index: 1000;
+    }
+    
+    #timer.critical {
+      background-color: #dc2626;
+      animation: pulse 0.5s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 99;
+    }
+    
+    .modal-content {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    .modal-content h2 {
+      margin-bottom: 20px;
+      color: #6a4c93;
+    }
+    
+    .modal-content p {
+      font-size: 18px;
+      margin-bottom: 25px;
+    }
+    
+    .modal-content button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      background: linear-gradient(45deg, #6a4c93, #ff6b35);
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(106, 76, 147, 0.4);
+    }
+    
+    .modal-content button:hover {
+      background: linear-gradient(45deg, #ff6b35, #6a4c93);
+      box-shadow: 0 6px 20px rgba(106, 76, 147, 0.6);
+      transform: translateY(-2px);
+    }
+    
+    .solution-list {
+      text-align: left;
+      margin: 20px 0;
+    }
+    
+    .solution-item {
+      margin-bottom: 10px;
+      padding: 10px;
+      background: rgba(106, 76, 147, 0.1);
+      border-radius: 8px;
+    }
+    
+    .solution-item strong {
+      color: #6a4c93;
+    }
+    
+    @media (max-width: 600px) {
+      .game-container {
+        padding: 20px;
+      }
+      
+      .columns-container {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .column {
+        width: 100%;
+      }
+      
+      .tile {
+        height: 60px;
+        font-size: 16px;
+      }
+      
+      .input-group {
+        flex-direction: column;
+      }
+      
+      .input-column {
+        width: 100%;
+      }
+      
+      input[type="text"] {
+        padding: 12px;
+        font-size: 16px;
+      }
+      
+      button {
+        padding: 10px 15px;
+        font-size: 16px;
+      }
+      
+      #timer {
+        font-size: 20px;
+        padding: 6px 12px;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!--<h1>Hemijske Asocijacije</h1>-->
-    <p>Rezultat: <span id="scoreDisplay">0</span> bodova</p>
-    <table id="table"><tbody></tbody></table>
 
-    <input type="text" id="keyA" placeholder="Unesi ključ kolone A" />
-    <input type="text" id="keyB" placeholder="Unesi ključ kolone B" />
-    <input type="text" id="keyC" placeholder="Unesi ključ kolone C" />
-    <input type="text" id="keyD" placeholder="Unesi ključ kolone D" />
-    <input type="text" id="finalKey" placeholder="Unesi konačno rešenje" />
-
-    <div>
-      <button class="check-button" onclick="checkColumn('A')">Proveri A</button>
-      <button class="check-button" onclick="checkColumn('B')">Proveri B</button>
-      <button class="check-button" onclick="checkColumn('C')">Proveri C</button>
-      <button class="check-button" onclick="checkColumn('D')">Proveri D</button>
-      <button class="check-button" onclick="checkFinalSolution()">Konačno rešenje</button>
+<div class="game-container">
+  <div class="columns-container" id="tilesContainer">
+    <!-- Columns will be generated here -->
+  </div>
+  
+  <div class="input-group">
+    <div class="input-column">
+      <input type="text" id="inputA" placeholder="Rešenje za kolonu A">
+      <button id="btnA" onclick="checkSolution('A')">Proveri A</button>
     </div>
-
-  <div id="toast-container"></div>
-  <div id="timer">02:30</div>
-
-<div id="endGameModal" class="modal">
-  <div class="modal-content">
-    <h2>Kraj igre!</h2>
-
-    <h3>Rešenja</h3>
-    <ul>
-      <li><strong>A:</strong> <span id="solutionA"></span></li>
-      <li><strong>B:</strong> <span id="solutionB"></span></li>
-      <li><strong>C:</strong> <span id="solutionC"></span></li>
-      <li><strong>D:</strong> <span id="solutionD"></span></li>
-      <li><strong>Konačno:</strong> <span id="solutionFinal"></span></li>
-    </ul>
-
-    <p>Osvojio si <span id="finalScore"></span> bodova.</p>
-    <button onclick="goToMainMenu()">Glavni meni</button>
+    <div class="input-column">
+      <input type="text" id="inputB" placeholder="Rešenje za kolonu B">
+      <button id="btnB" onclick="checkSolution('B')">Proveri B</button>
+    </div>
+    <div class="input-column">
+      <input type="text" id="inputC" placeholder="Rešenje za kolonu C">
+      <button id="btnC" onclick="checkSolution('C')">Proveri C</button>
+    </div>
+    <div class="input-column">
+      <input type="text" id="inputD" placeholder="Rešenje za kolonu D">
+      <button id="btnD" onclick="checkSolution('D')">Proveri D</button>
+    </div>
+  </div>
+  
+  <div style="margin: 20px 0;">
+    <input type="text" id="inputFinal" placeholder="Konačno rešenje" style="width: 100%; max-width: 500px; margin-bottom: 10px;">
+    <button id="btnFinal" onclick="checkFinalSolution()">Proveri konačno rešenje</button>
   </div>
 </div>
 
+<div id="timer">120</div>
 
+<div class="modal" id="resultModal">
+  <div class="modal-content">
+    <h2>Kraj igre!</h2>
+    <p id="finalScoreText"></p>
+    
+    <div class="solution-list">
+      <div class="solution-item"><strong>Kolona A:</strong> <span id="solutionA"></span></div>
+      <div class="solution-item"><strong>Kolona B:</strong> <span id="solutionB"></span></div>
+      <div class="solution-item"><strong>Kolona C:</strong> <span id="solutionC"></span></div>
+      <div class="solution-item"><strong>Kolona D:</strong> <span id="solutionD"></span></div>
+      <div class="solution-item"><strong>Konačno rešenje:</strong> <span id="solutionFinal"></span></div>
+    </div>
+    
+    <button onclick="goToMenu()">Nazad na meni</button>
+  </div>
 </div>
 
-  <script>
-    const games = [
-      {
-        words: {
-          A1: "olovke", A2: "provodnik", A3: "nuklearne elektrane", A4: "elektrode", 
-          B1: "1985", B2: "fudbalska lopta", B3: "60 atoma", B4: "nanotehnologija", 
-          C1: "sitne amorfne čestice", C2: "modifikovani", C3: "prirodni", C4: "koks",
-          D1: "nakit", D2: "noževi", D3: "reže staklo", D4: "veliki indeks prelamanja svjetlosti"
-        },
-        correctAnswers: {
-          keyA: "Grafit",
-          keyB: "Fuleren",
-          keyC: "Ugalj",
-          keyD: "Dijamant",
-          finalKey: "Ugljenik"
-        }
+<script>
+  // Game data - chemistry themed associations
+  const games = [
+    {
+      tiles: {
+        A1: "Najlakši element", A2: "Simbol H", A3: "Sastavni deo vode", A4: "Koristi se u balonima",
+        B1: "Bezbojan gas", B2: "NH3", B3: "Koristi se u đubrivima", B4: "Oštrog mirisa",
+        C1: "H2O", C2: "Univerzalno rastvarač", C3: "Ključan za život", C4: "Tečnost na sobnoj temperaturi",
+        D1: "CH4", D2: "Glavni sastojak prirodnog gasa", D3: "Zelena kuća", D4: "Gorivo"
       },
-      {
-        words: {
-          A1: "bockavog mirisa", A2: "otrovan", A3: "bijeljenje svile", A4: "suvo voće",
-          B1: "molekulski", B2: "21% atmosfere", B3: "disanje", B4: "bezbojan",
-          C1: "toksičan", C2: "crveno-smeđ", C3: "gušenje", C4: "kisele kiše",
-          D1: "bunari", D2: "podrumi", D3: "fotosinteza", D4: "gazirana pića"
-        },
-        correctAnswers: {
-          keyA: "SO2",
-          keyB: ["O2", "kiseonik"],
-          keyC: "NO2",
-          keyD: "CO2",
-          finalKey: "Dioksidi"
-        }
-      },
-      {
-        words: {
-          A1: "69,8%", A2: "digestori", A3: "3.", A4: "pušiva",
-          B1: "bezbojna", B2: "umjereno jaka", B3: "meta i piro", B4: "čvrsta",
-          C1: "želudac", C2: "jaka", C3: "solna", C4: "bezbojna",
-          D1: "uljasta", D2: "galice", D3: "98%", D4: "diprotonska"
-        },
-        correctAnswers: {
-          keyA: "HNO3",
-          keyB: "H3PO4",
-          keyC: "HCl",
-          keyD: "H2SO4",
-          finalKey: "Kiseline"
-        }
-      },
-      {
-        words: {
-          A1: "gas", A2: "Sunce i zvijezde", A3: "proton", A4: "lakši od vazduha",
-          B1: "suze", B2: "29,4%", B3: "eksplozivi", B4: "vještačka đubriva",
-          C1: "amfolit", C2: "pH neutralna", C3: "Tk = 100°C", C4: "najgušća 4°C",
-          D1: "otrovan", D2: "gas", D3: "trula riba", D4: "ne rastvara se u H₂0"
-        },
-        correctAnswers: {
-          keyA: ["H", "vodonik"],    // višestruka tačna rešenja
-          keyB: ["NH3", "amonijak"],
-          keyC: ["H20", "voda"],
-          keyD: ["PH3", "fosfin"],
-          finalKey: "Hidridi"
-        }
-      },
-    ];
-
-    let currentGameIndex = 0;
-    let solvedKeys = { A: false, B: false, C: false, D: false };
-    let gameEnded = false;
-    let score = 0;
-    let timerInterval;
-    let timeLeft = 150; // 150 seconds
-
-    function showToast(message, type = "success") {
-      const toast = document.createElement("div");
-      toast.classList.add("toast");
-      if(type === "warning") toast.classList.add("toast-warning");
-      else if(type === "error") toast.classList.add("toast-error");
-      else toast.classList.add("toast-success");
-      toast.textContent = message;
-
-      const container = document.getElementById("toast-container");
-      container.appendChild(toast);
-
-      setTimeout(() => {
-        toast.remove();
-      }, 3000);
-    }
-
-    function updateScoreDisplay() {
-      document.getElementById("scoreDisplay").textContent = score;
-    }
-
-    function loadGame(index) {
-      solvedKeys = { A: false, B: false, C: false, D: false };
-      gameEnded = false;
-      score = 0;
-      updateScoreDisplay();
-      clearInterval(timerInterval);
-      timeLeft = 150;
-      updateTimerDisplay();
-      startTimer();
-
-      const tbody = document.querySelector("#table tbody");
-      tbody.innerHTML = "";
-
-      const game = games[index];
-
-      // Pravimo 4 reda sa 4 kolone
-      for(let i=1; i<=4; i++) {
-        const row = document.createElement("tr");
-
-        ['A','B','C','D'].forEach(col => {
-          const td = document.createElement("td");
-          td.id = col + i;
-          td.textContent = game.words[col + i];
-          td.style.color = "transparent"; // sakrij tekst
-          td.style.position = "relative";
-
-          // Dodajemo cover da se može kliknuti da otkrije
-          const coverDiv = document.createElement("div");
-          coverDiv.className = "cover";
-          coverDiv.textContent = td.id;
-
-          coverDiv.onclick = () => {
-            if(gameEnded) return;
-            coverDiv.style.display = "none";
-            td.style.color = "white";
-          };
-
-          td.appendChild(coverDiv);
-          row.appendChild(td);
-        });
-        tbody.appendChild(row);
+      solutions: {
+        A: ["Vodonik", "H"],
+        B: ["Amonijak", "NH3"],
+        C: ["Voda", "H2O"],
+        D: ["Metan", "CH4"],
+        final: "Hidridi"
       }
-
-      // Reset input polja
-      ['A','B','C','D'].forEach(col => {
-        const input = document.getElementById("key"+col);
-        input.value = "";
-        input.style.backgroundColor = "";
-      });
-      const finalInput = document.getElementById("finalKey");
-      finalInput.value = "";
-      finalInput.style.backgroundColor = "";
-
-      // Sakrij popup rešenja
-      document.getElementById("miniSolutionPopup").style.display = "none";
-    }
-
-    function checkColumn(col) {
-      if(gameEnded) return;
-
-      // Proveri da li je otvoreno bar jedno polje u toj koloni
-      let opened = false;
-      for(let i=1; i<=4; i++) {
-        const td = document.getElementById(col + i);
-        if (!td.querySelector(".cover") || td.querySelector(".cover").style.display === "none") {
-          opened = true;
-          break;
-        }
+    },
+    {
+      tiles: {
+        A1: "NaCl", A2: "Kuhinjska so", A3: "Odgovoran za slanost mora", A4: "Koristi se za odleđivanje",
+        B1: "NaOH", B2: "Masna soda", B3: "Jaka baza", B4: "Koristi se u sapunima",
+        C1: "HCl", C2: "Solna kiselina", C3: "Želudačna kiselina", C4: "Jaka kiselina",
+        D1: "H2SO4", D2: "Sumporna kiselina", D3: "Koristi se u akumulatorima", D4: "Kisele kiše"
+      },
+      solutions: {
+        A: ["Natrijum hlorid", "Kuhinjska so", "NaCl"],
+        B: ["Natrijum hidroksid", "NaOH"],
+        C: ["Hlorovodonična kiselina", "HCl"],
+        D: ["Sumporna kiselina", "H2SO4"],
+        final: "Neorganska jedinjenja"
       }
-
-      if(!opened) {
-        showToast(`Otvorite bar jedno polje u koloni ${col}.`, "warning");
-        return;
+    },
+    {
+      tiles: {
+        A1: "CO2", A2: "Ugljen-dioksid", A3: "Fotosinteza", A4: "Efekat staklene bašte",
+        B1: "O3", B2: "Ozon", B3: "Ozonosfer", B4: "Zaštita od UV zraka",
+        C1: "NO2", C2: "Azot-dioksid", C3: "Kisele kiše", C4: "Smog",
+        D1: "SO2", D2: "Sumpor-dioksid", D3: "Kisele kiše", D4: "Industrijski otpad"
+      },
+      solutions: {
+        A: ["Ugljen-dioksid", "CO2"],
+        B: ["Ozon", "O3"],
+        C: ["Azot-dioksid", "NO2"],
+        D: ["Sumpor-dioksid", "SO2"],
+        final: "Dioksidi"
       }
-
-      const input = document.getElementById("key"+col);
-      const value = input.value.trim().toLowerCase();
-      const correct = games[currentGameIndex].correctAnswers["key"+col];
-let isCorrect = false;
-
-if (Array.isArray(correct)) {
-  isCorrect = correct.some(ans => ans.toLowerCase() === value);
-} else {
-  isCorrect = (correct.toLowerCase() === value);
-}
-
-
-      if(isCorrect) {
-        input.style.backgroundColor = "#2e7d32"; // zelena
-        if(!solvedKeys[col]) {
-          solvedKeys[col] = true;
-          score += 10;
-          updateScoreDisplay();
-          showToast(`Tačno rešenje za kolonu ${col}! +10 bodova.`);
-        }
-      } else {
-        input.style.backgroundColor = "#b71c1c"; // crvena
-        showToast(`Pogrešno rešenje za kolonu ${col}.`, "error");
+    },
+    {
+      tiles: {
+        A1: "C", A2: "Ugljenik", A3: "Osnovni element organskih jedinjenja", A4: "Dijamant i grafit",
+        B1: "O", B2: "Kiseonik", B3: "Disanje", B4: "21% atmosfere",
+        C1: "N", C2: "Azot", C3: "78% atmosfere", C4: "Đubrivo",
+        D1: "H", D2: "Vodonik", D3: "Najlakši element", D4: "Sastavni deo vode"
+      },
+      solutions: {
+        A: ["Ugljenik", "C"],
+        B: ["Kiseonik", "O"],
+        C: ["Azot", "N"],
+        D: ["Vodonik", "H"],
+        final: "Elementi života"
+      }
+    },
+    // Your custom game
+    {
+      tiles: {
+        A1: "Vaš prvi hint za kolonu A", A2: "Vaš drugi hint za kolonu A", A3: "Vaš treći hint za kolonu A", A4: "Vaš četvrti hint za kolonu A",
+        B1: "Vaš prvi hint za kolonu B", B2: "Vaš drugi hint za kolonu B", B3: "Vaš treći hint za kolonu B", B4: "Vaš četvrti hint za kolonu B",
+        C1: "Vaš prvi hint za kolonu C", C2: "Vaš drugi hint za kolonu C", C3: "Vaš treći hint za kolonu C", C4: "Vaš četvrti hint za kolonu C",
+        D1: "Vaš prvi hint za kolonu D", D2: "Vaš drugi hint za kolonu D", D3: "Vaš treći hint za kolonu D", D4: "Vaš četvrti hint za kolonu D"
+      },
+      solutions: {
+        A: ["Vaš odgovor za kolonu A", "Alternativni odgovor"],
+        B: ["Vaš odgovor za kolonu B"],
+        C: ["Vaš odgovor za kolonu C"],
+        D: ["Vaš odgovor za kolonu D"],
+        final: "Vaše konačno rešenje"
       }
     }
+  ];
 
-    function checkFinalSolution() {
-      if(gameEnded) return;
+  let currentGame;
+  let score = 0;
+  let timeLeft = 120;
+  let timerInterval;
+  let solvedColumns = { A: false, B: false, C: false, D: false };
+  let gameEnded = false;
 
-      const input = document.getElementById("finalKey");
-      const value = input.value.trim().toLowerCase();
-      const correct = games[currentGameIndex].correctAnswers.finalKey.toLowerCase();
-
-      if(value === correct) {
-        input.style.backgroundColor = "#2e7d32";
-        // Za svaku nerešenu kolonu daj po 10 bodova kao da je rešena
-        ['A','B','C','D'].forEach(col => {
-          if(!solvedKeys[col]) {
-            solvedKeys[col] = true;
-            score += 10;
+  // Initialize the game
+  function initGame() {
+    // Select a random game
+    currentGame = games[Math.floor(Math.random() * games.length)];
+    
+    // Reset game state
+    score = 0;
+    timeLeft = 120;
+    solvedColumns = { A: false, B: false, C: false, D: false };
+    gameEnded = false;
+    
+    // Update UI
+    document.getElementById('timer').textContent = timeLeft;
+    document.getElementById('timer').classList.remove('critical');
+    
+    // Clear inputs
+    ['A', 'B', 'C', 'D', 'Final'].forEach(col => {
+      const input = document.getElementById(`input${col}`);
+      if (input) {
+        input.value = '';
+        input.className = '';
+        input.disabled = false;
+      }
+    });
+    
+    // Clear buttons
+    ['A', 'B', 'C', 'D'].forEach(col => {
+      const btn = document.getElementById(`btn${col}`);
+      if (btn) {
+        btn.disabled = false;
+      }
+    });
+    
+    // Generate tiles
+    const container = document.getElementById('tilesContainer');
+    container.innerHTML = '';
+    
+    for (let col of ['A', 'B', 'C', 'D']) {
+      const column = document.createElement('div');
+      column.className = 'column';
+      
+      for (let i = 1; i <= 4; i++) {
+        const tile = document.createElement('div');
+        tile.className = 'tile';
+        tile.id = `${col}${i}`;
+        
+        const content = document.createElement('div');
+        content.className = 'content';
+        content.textContent = currentGame.tiles[`${col}${i}`];
+        
+        const cover = document.createElement('div');
+        cover.className = 'cover';
+        cover.textContent = `${col}${i}`;
+        cover.onclick = function() {
+          if (!gameEnded) {
+            this.style.display = 'none';
           }
-        });
+        };
+        
+        tile.appendChild(content);
+        tile.appendChild(cover);
+        column.appendChild(tile);
+      }
+      
+      container.appendChild(column);
+    }
+    
+    // Start timer
+    clearInterval(timerInterval);
+    timerInterval = setInterval(updateTimer, 1000);
+  }
 
-        score += 30; // +30 za konačno rešenje
-        updateScoreDisplay();
-        gameEnded = true;
-        clearInterval(timerInterval);
-        showToast("Čestitamo! Tačno konačno rešenje! +30 bodova i +10 po nerešenoj koloni.", "success");
-
-        revealAllCells();
-        showEndGameModal();
-
-
-      } else {
-        input.style.backgroundColor = "#b71c1c";
-        showToast("Pogrešno konačno rešenje.", "error");
+  // Check solution for a column
+  function checkSolution(column) {
+    if (gameEnded) return;
+    
+    const input = document.getElementById(`input${column}`);
+    const userAnswer = input.value.trim();
+    const correctAnswers = currentGame.solutions[column];
+    
+    // Check if at least one tile in this column is revealed
+    let isRevealed = false;
+    for (let i = 1; i <= 4; i++) {
+      const tile = document.getElementById(`${column}${i}`);
+      if (tile.querySelector('.cover').style.display === 'none') {
+        isRevealed = true;
+        break;
       }
     }
-
-    function revealAllCells() {
-      ['A','B','C','D'].forEach(col => {
-        for(let i=1; i<=4; i++) {
-          const td = document.getElementById(col + i);
-          const cover = td.querySelector(".cover");
-          if(cover) cover.style.display = "none";
-          td.style.color = "white";
-        }
-      });
+    
+    if (!isRevealed) {
+      alert(`Otvorite bar jedno polje u koloni ${column} pre nego što pokušate da pogodite rešenje!`);
+      return;
     }
-
-    function showSolutionsPopup() {
-      const popup = document.getElementById("miniSolutionPopup");
-      const ans = games[currentGameIndex].correctAnswers;
-      document.getElementById("solutionA").textContent = ans.keyA;
-      document.getElementById("solutionB").textContent = ans.keyB;
-      document.getElementById("solutionC").textContent = ans.keyC;
-      document.getElementById("solutionD").textContent = ans.keyD;
-      document.getElementById("solutionFinal").textContent = ans.finalKey;
-      popup.style.display = "block";
-    }
-
-    function updateTimerDisplay() {
-      const timer = document.getElementById("timer");
-      let minutes = Math.floor(timeLeft / 60);
-      let seconds = timeLeft % 60;
-      timer.textContent = 
-        (minutes < 10 ? "0" + minutes : minutes) + ":" + 
-        (seconds < 10 ? "0" + seconds : seconds);
-    }
-
-    function startTimer() {
-      timerInterval = setInterval(() => {
-        if(timeLeft <= 0) {
-          clearInterval(timerInterval);
-          gameEnded = true;
-          showToast("Isteklo je vreme! Otkrivaju se sva polja i rešenja.", "warning");
-          revealAllCells();
-          showEndGameModal();
-
-          // Onemogući dalje pogađanje i otkrivanje
-        } else {
-          timeLeft--;
-          updateTimerDisplay();
-        }
+    
+    // Check if answer is correct
+    const isCorrect = correctAnswers.some(ans => 
+      ans.toLowerCase() === userAnswer.toLowerCase()
+    );
+    
+    if (isCorrect) {
+      // Mark as correct
+      input.classList.add('correct');
+      input.disabled = true;
+      document.getElementById(`btn${column}`).disabled = true;
+      
+      // Add points if not already solved
+      if (!solvedColumns[column]) {
+        score += 10;
+        solvedColumns[column] = true;
+      }
+      
+      // Reveal all tiles in this column
+      for (let i = 1; i <= 4; i++) {
+        const tile = document.getElementById(`${column}${i}`);
+        tile.querySelector('.cover').style.display = 'none';
+        tile.classList.add('revealed');
+      }
+      
+      // Check if all columns are solved
+      if (Object.values(solvedColumns).every(val => val)) {
+        document.getElementById('inputFinal').focus();
+      }
+    } else {
+      // Mark as wrong
+      input.classList.add('wrong');
+      setTimeout(() => {
+        input.classList.remove('wrong');
       }, 1000);
     }
+  }
 
-    // Nasumično izaberi igru pri učitavanju
-    window.onload = () => {
-      currentGameIndex = Math.floor(Math.random() * games.length);
-      loadGame(currentGameIndex);
-    };
+  // Check final solution
+  function checkFinalSolution() {
+    if (gameEnded) return;
+    
+    const input = document.getElementById('inputFinal');
+    const userAnswer = input.value.trim();
+    const correctAnswer = currentGame.solutions.final;
+    
+    // Check if answer is correct
+    const isCorrect = correctAnswer.toLowerCase() === userAnswer.toLowerCase();
+    
+    if (isCorrect) {
+      // Mark as correct
+      input.classList.add('correct');
+      input.disabled = true;
+      
+      // Add points for any unsolved columns
+      for (let col of ['A', 'B', 'C', 'D']) {
+        if (!solvedColumns[col]) {
+          score += 10;
+          solvedColumns[col] = true;
+        }
+      }
+      
+      // Add bonus points
+      score += 20;
+      
+      // End the game
+      endGame(true);
+    } else {
+      // Mark as wrong
+      input.classList.add('wrong');
+      setTimeout(() => {
+        input.classList.remove('wrong');
+      }, 1000);
+    }
+  }
 
-    function showEndGameModal() {
-  gameEnded = true;
-  clearInterval(timerInterval);
-  
-  const solutions = {
-    A: games[currentGameIndex].correctAnswers.keyA,
-    B: games[currentGameIndex].correctAnswers.keyB,
-    C: games[currentGameIndex].correctAnswers.keyC,
-    D: games[currentGameIndex].correctAnswers.keyD,
-    final: games[currentGameIndex].correctAnswers.finalKey
-  };
+  // Update timer
+  function updateTimer() {
+    timeLeft--;
+    document.getElementById('timer').textContent = timeLeft;
+    
+    if (timeLeft <= 10) {
+      document.getElementById('timer').classList.add('critical');
+    }
+    
+    if (timeLeft <= 0) {
+      endGame(false);
+    }
+  }
 
-  document.getElementById('finalScore').textContent = score;
-  document.getElementById('solutionA').textContent = Array.isArray(solutions.A) ? solutions.A.join(", ") : solutions.A;
-  document.getElementById('solutionB').textContent = Array.isArray(solutions.B) ? solutions.B.join(", ") : solutions.B;
-  document.getElementById('solutionC').textContent = Array.isArray(solutions.C) ? solutions.C.join(", ") : solutions.C;
-  document.getElementById('solutionD').textContent = Array.isArray(solutions.D) ? solutions.D.join(", ") : solutions.D;
-  document.getElementById('solutionFinal').textContent = solutions.final;
+  // End the game
+  function endGame(isWin) {
+    gameEnded = true;
+    clearInterval(timerInterval);
+    
+    // Reveal all tiles
+    for (let col of ['A', 'B', 'C', 'D']) {
+      for (let i = 1; i <= 4; i++) {
+        const tile = document.getElementById(`${col}${i}`);
+        tile.querySelector('.cover').style.display = 'none';
+      }
+    }
+    
+    // Disable all inputs
+    ['A', 'B', 'C', 'D', 'Final'].forEach(col => {
+      const input = document.getElementById(`input${col}`);
+      if (input) input.disabled = true;
+    });
+    
+    // Disable all buttons
+    ['A', 'B', 'C', 'D'].forEach(col => {
+      const btn = document.getElementById(`btn${col}`);
+      if (btn) btn.disabled = true;
+    });
+    
+    // Show results
+    document.getElementById('finalScoreText').textContent = 
+      isWin ? `Čestitamo! Osvojili ste ${score} bodova!` : `Vreme je isteklo! Osvojili ste ${score} bodova.`;
+    
+    // Show solutions
+    document.getElementById('solutionA').textContent = currentGame.solutions.A.join(", ");
+    document.getElementById('solutionB').textContent = currentGame.solutions.B.join(", ");
+    document.getElementById('solutionC').textContent = currentGame.solutions.C.join(", ");
+    document.getElementById('solutionD').textContent = currentGame.solutions.D.join(", ");
+    document.getElementById('solutionFinal').textContent = currentGame.solutions.final;
+    
+    // Show modal
+    document.getElementById('resultModal').style.display = 'flex';
+    
+    // Save score
+    localStorage.setItem('asocijacijeScore', score);
+  }
 
-  document.getElementById('endGameModal').style.display = 'block';
-}
+  // Go back to menu
+  function goToMenu() {
+    window.location.href = '../igra.html';
+  }
 
+  // Start the game when page loads
+  window.onload = initGame;
+</script>
 
-function goToMainMenu() {
-  const modal = document.getElementById("endGameModal");
-  modal.style.display = "none";
-  const score = document.getElementById('scoreDisplay').textContent;
-  localStorage.setItem('asocijacijeScore', score);
-  window.location.href = "../igra.html"; // prilagodi putanju ako treba
-}
-
-  </script>
 </body>
 </html>
