@@ -350,83 +350,68 @@
 <script>
   // Game data - chemistry themed associations
   const games = [
-    {
-      tiles: {
-        A1: "Najlakši element", A2: "Simbol H", A3: "Sastavni deo vode", A4: "Koristi se u balonima",
-        B1: "Bezbojan gas", B2: "NH3", B3: "Koristi se u đubrivima", B4: "Oštrog mirisa",
-        C1: "H2O", C2: "Univerzalno rastvarač", C3: "Ključan za život", C4: "Tečnost na sobnoj temperaturi",
-        D1: "CH4", D2: "Glavni sastojak prirodnog gasa", D3: "Zelena kuća", D4: "Gorivo"
-      },
-      solutions: {
-        A: ["Vodonik", "H"],
-        B: ["Amonijak", "NH3"],
-        C: ["Voda", "H2O"],
-        D: ["Metan", "CH4"],
-        final: "Hidridi"
-      }
+  {
+    tiles: {
+      A1: "olovke", A2: "provodnik", A3: "nuklearne elektrane", A4: "elektrode",
+      B1: "1985", B2: "fudbalska lopta", B3: "60 atoma", B4: "nanotehnologija",
+      C1: "sitne amorfne čestice", C2: "modifikovani", C3: "prirodni", C4: "koks",
+      D1: "nakit", D2: "noževi", D3: "reže staklo", D4: "veliki indeks prelamanja svjetlosti"
     },
-    {
-      tiles: {
-        A1: "NaCl", A2: "Kuhinjska so", A3: "Odgovoran za slanost mora", A4: "Koristi se za odleđivanje",
-        B1: "NaOH", B2: "Masna soda", B3: "Jaka baza", B4: "Koristi se u sapunima",
-        C1: "HCl", C2: "Solna kiselina", C3: "Želudačna kiselina", C4: "Jaka kiselina",
-        D1: "H2SO4", D2: "Sumporna kiselina", D3: "Koristi se u akumulatorima", D4: "Kisele kiše"
-      },
-      solutions: {
-        A: ["Natrijum hlorid", "Kuhinjska so", "NaCl"],
-        B: ["Natrijum hidroksid", "NaOH"],
-        C: ["Hlorovodonična kiselina", "HCl"],
-        D: ["Sumporna kiselina", "H2SO4"],
-        final: "Neorganska jedinjenja"
-      }
-    },
-    {
-      tiles: {
-        A1: "CO2", A2: "Ugljen-dioksid", A3: "Fotosinteza", A4: "Efekat staklene bašte",
-        B1: "O3", B2: "Ozon", B3: "Ozonosfer", B4: "Zaštita od UV zraka",
-        C1: "NO2", C2: "Azot-dioksid", C3: "Kisele kiše", C4: "Smog",
-        D1: "SO2", D2: "Sumpor-dioksid", D3: "Kisele kiše", D4: "Industrijski otpad"
-      },
-      solutions: {
-        A: ["Ugljen-dioksid", "CO2"],
-        B: ["Ozon", "O3"],
-        C: ["Azot-dioksid", "NO2"],
-        D: ["Sumpor-dioksid", "SO2"],
-        final: "Dioksidi"
-      }
-    },
-    {
-      tiles: {
-        A1: "C", A2: "Ugljenik", A3: "Osnovni element organskih jedinjenja", A4: "Dijamant i grafit",
-        B1: "O", B2: "Kiseonik", B3: "Disanje", B4: "21% atmosfere",
-        C1: "N", C2: "Azot", C3: "78% atmosfere", C4: "Đubrivo",
-        D1: "H", D2: "Vodonik", D3: "Najlakši element", D4: "Sastavni deo vode"
-      },
-      solutions: {
-        A: ["Ugljenik", "C"],
-        B: ["Kiseonik", "O"],
-        C: ["Azot", "N"],
-        D: ["Vodonik", "H"],
-        final: "Elementi života"
-      }
-    },
-    // Your custom game
-    {
-      tiles: {
-        A1: "Vaš prvi hint za kolonu A", A2: "Vaš drugi hint za kolonu A", A3: "Vaš treći hint za kolonu A", A4: "Vaš četvrti hint za kolonu A",
-        B1: "Vaš prvi hint za kolonu B", B2: "Vaš drugi hint za kolonu B", B3: "Vaš treći hint za kolonu B", B4: "Vaš četvrti hint za kolonu B",
-        C1: "Vaš prvi hint za kolonu C", C2: "Vaš drugi hint za kolonu C", C3: "Vaš treći hint za kolonu C", C4: "Vaš četvrti hint za kolonu C",
-        D1: "Vaš prvi hint za kolonu D", D2: "Vaš drugi hint za kolonu D", D3: "Vaš treći hint za kolonu D", D4: "Vaš četvrti hint za kolonu D"
-      },
-      solutions: {
-        A: ["Vaš odgovor za kolonu A", "Alternativni odgovor"],
-        B: ["Vaš odgovor za kolonu B"],
-        C: ["Vaš odgovor za kolonu C"],
-        D: ["Vaš odgovor za kolonu D"],
-        final: "Vaše konačno rešenje"
-      }
+    solutions: {
+      A: ["Grafit"],
+      B: ["Fuleren"],
+      C: ["Ugalj"],
+      D: ["Dijamant"],
+      final: "Ugljenik"
     }
-  ];
+  },
+  {
+    tiles: {
+      A1: "bockavog mirisa", A2: "otrovan", A3: "bijeljenje svile", A4: "suvo voće",
+      B1: "molekulski", B2: "21% atmosfere", B3: "disanje", B4: "bezbojan",
+      C1: "toksičan", C2: "crveno-smeđ", C3: "gušenje", C4: "kisele kiše",
+      D1: "bunari", D2: "podrumi", D3: "fotosinteza", D4: "gazirana pića"
+    },
+    solutions: {
+      A: ["SO2"],
+      B: ["O2", "kiseonik"],
+      C: ["NO2"],
+      D: ["CO2"],
+      final: "Dioksidi"
+    }
+  },
+  {
+    tiles: {
+      A1: "69,8%", A2: "digestori", A3: "3.", A4: "pušiva",
+      B1: "bezbojna", B2: "umjereno jaka", B3: "meta i piro", B4: "čvrsta",
+      C1: "želudac", C2: "jaka", C3: "solna", C4: "bezbojna",
+      D1: "uljasta", D2: "galice", D3: "98%", D4: "diprotonska"
+    },
+    solutions: {
+      A: ["HNO3"],
+      B: ["H3PO4"],
+      C: ["HCl"],
+      D: ["H2SO4"],
+      final: "Kiseline"
+    }
+  },
+  {
+    tiles: {
+      A1: "gas", A2: "Sunce i zvijezde", A3: "proton", A4: "lakši od vazduha",
+      B1: "suze", B2: "29,4%", B3: "eksplozivi", B4: "vještačka đubriva",
+      C1: "amfolit", C2: "pH neutralna", C3: "Tk = 100°C", C4: "najgušća 4°C",
+      D1: "otrovan", D2: "gas", D3: "trula riba", D4: "ne rastvara se u H₂0"
+    },
+    solutions: {
+      A: ["H", "vodonik"],
+      B: ["NH3", "amonijak"],
+      C: ["H2O", "voda"],
+      D: ["PH3", "fosfin"],
+      final: "Hidridi"
+    }
+  }
+];
+
 
   let currentGame;
   let score = 0;
