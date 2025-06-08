@@ -28,7 +28,7 @@
       padding: 30px;
       border-radius: 20px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-      width: 700px;
+      width: 800px;
       max-width: 95%;
       text-align: center;
     }
@@ -36,19 +36,19 @@
     .columns-container {
       display: flex;
       justify-content: space-between;
-      margin: 30px 0;
+      margin: 10px 0;
     }
     
     .column {
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 10px;
       width: 23%;
     }
     
     .tile {
       background: white;
-      height: 80px;
+      height: 70px;
       width: 100%;
       border-radius: 10px;
       border: 2px solid #ddd;
@@ -116,36 +116,6 @@
     input[type="text"]:focus {
       border: 2px solid #6a4c93;
       outline: none;
-    }
-    
-    .button-group {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    
-    button {
-      padding: 8px 12px;
-      font-size: 18px;
-      background-color: #6a4c93;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    
-    button:hover {
-      background-color: #5a3c83;
-      transform: translateY(-2px);
-    }
-    
-    button:disabled {
-      background-color: #aaa;
-      cursor: not-allowed;
-      transform: none !important;
     }
     
     .correct {
@@ -269,16 +239,6 @@
     font-size: 14px;
   }
   
-  button {
-    padding: 8px 12px;
-    font-size: 14px;
-  }
-  
-  #timer {
-    font-size: 18px;
-    padding: 5px 10px;
-  }
-  
   /* Keep columns side by side with horizontal scrolling */
   .columns-container {
     overflow-x: auto;
@@ -307,6 +267,7 @@
     vertical-align: top;
     width: 180px; /* Fixed width for mobile */
     margin-right: 10px;
+    margin-bottom: 10px;
   }
   
   #inputFinal {
@@ -324,26 +285,21 @@
   
   <div class="input-group">
     <div class="input-column">
-      <input type="text" id="inputA" placeholder="Rešenje za kolonu A">
-      <button id="btnA" onclick="checkSolution('A')">Proveri A</button>
+      <input type="text" id="inputA" placeholder="Rešenje za kolonu A" onkeypress="handleKeyPress(event, 'A')">
     </div>
     <div class="input-column">
-      <input type="text" id="inputB" placeholder="Rešenje za kolonu B">
-      <button id="btnB" onclick="checkSolution('B')">Proveri B</button>
+      <input type="text" id="inputB" placeholder="Rešenje za kolonu B" onkeypress="handleKeyPress(event, 'B')">
     </div>
     <div class="input-column">
-      <input type="text" id="inputC" placeholder="Rešenje za kolonu C">
-      <button id="btnC" onclick="checkSolution('C')">Proveri C</button>
+      <input type="text" id="inputC" placeholder="Rešenje za kolonu C" onkeypress="handleKeyPress(event, 'C')">
     </div>
     <div class="input-column">
-      <input type="text" id="inputD" placeholder="Rešenje za kolonu D">
-      <button id="btnD" onclick="checkSolution('D')">Proveri D</button>
+      <input type="text" id="inputD" placeholder="Rešenje za kolonu D" onkeypress="handleKeyPress(event, 'D')">
     </div>
   </div>
   
   <div style="margin: 20px 0;">
-    <input type="text" id="inputFinal" placeholder="Konačno rešenje" style="width: 100%; max-width: 500px; margin-bottom: 10px;">
-    <button id="btnFinal" onclick="checkFinalSolution()">Proveri konačno rešenje</button>
+    <input type="text" id="inputFinal" placeholder="Konačno rešenje" style="width: 100%; max-width: 500px; margin-bottom: 10px;" onkeypress="handleFinalKeyPress(event)">
   </div>
 </div>
 
@@ -464,14 +420,6 @@
       }
     });
     
-    // Clear buttons
-    ['A', 'B', 'C', 'D'].forEach(col => {
-      const btn = document.getElementById(`btn${col}`);
-      if (btn) {
-        btn.disabled = false;
-      }
-    });
-    
     // Generate tiles
     const container = document.getElementById('tilesContainer');
     container.innerHTML = '';
@@ -511,6 +459,20 @@
     timerInterval = setInterval(updateTimer, 1000);
   }
 
+  // Handle Enter key press for column inputs
+  function handleKeyPress(event, column) {
+    if (event.key === 'Enter') {
+      checkSolution(column);
+    }
+  }
+
+  // Handle Enter key press for final solution input
+  function handleFinalKeyPress(event) {
+    if (event.key === 'Enter') {
+      checkFinalSolution();
+    }
+  }
+
   // Check solution for a column
   function checkSolution(column) {
     if (gameEnded) return;
@@ -543,7 +505,6 @@
       // Mark as correct
       input.classList.add('correct');
       input.disabled = true;
-      document.getElementById(`btn${column}`).disabled = true;
       
       // Add points if not already solved
       if (!solvedColumns[column]) {
@@ -640,12 +601,6 @@
     ['A', 'B', 'C', 'D', 'Final'].forEach(col => {
       const input = document.getElementById(`input${col}`);
       if (input) input.disabled = true;
-    });
-    
-    // Disable all buttons
-    ['A', 'B', 'C', 'D'].forEach(col => {
-      const btn = document.getElementById(`btn${col}`);
-      if (btn) btn.disabled = true;
     });
     
     // Show results
