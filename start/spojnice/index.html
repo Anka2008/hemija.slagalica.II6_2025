@@ -468,6 +468,7 @@ function endGame() {
   localStorage.setItem('score', score);  // Čuvanje rezultata u localStorage
   document.getElementById("finalScore").innerText = `Osvojili ste ${score+timeLeft} bodova`;
   document.getElementById("resultModal").style.display = "flex";
+  localStorage.setItem('spojnicePlayed', 'true');
 }
 
 
