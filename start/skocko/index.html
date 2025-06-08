@@ -56,14 +56,11 @@
 <body class="min-h-screen bg-gradient-to-br from-green-400 to-yellow-300 flex flex-col items-center justify-start py-8 px-4">
     <div class="w-full max-w-md mx-auto">
       <div class="flex justify-between items-center mb-6">
-        <!-- Maknuto: <h1 class="text-3xl font-bold text-gray-800">Hemijski Skočko</h1> -->
-        <div></div> <!-- Da ostane prostor za razmak -->
+        <div></div>
         <div class="flex items-center space-x-2">
             <span id="timer" class="text-xl font-bold bg-white rounded-full px-4 py-1 shadow-md">100</span>
-            <!-- Maknuto: <span class="text-sm">sek</span> -->
         </div>
     </div>
-
         
         <div class="bg-white bg-opacity-80 rounded-xl shadow-xl p-6 mb-6">
             <div class="grid grid-cols-4 gap-2 mb-4" id="currentGuess">
@@ -116,7 +113,7 @@
         // Game state
         const elements = ['H', 'O', 'N', 'C', 'Cl', 'Na'];
         let secretCode = [];
-        let currentGuess = [null, null, null, null];
+        let currentGuess = Array(4).fill(null); // Initialize with 4 null values
         let attemptsLeft = 6;
         let timer = 100;
         let timerInterval;
@@ -148,7 +145,7 @@
             }
             
             // Reset game state
-            currentGuess = [];
+            currentGuess = Array(4).fill(null);
             attemptsLeft = 6;
             timer = 100;
             gameActive = true;
@@ -167,13 +164,13 @@
         }
         
         // Update current guess display
-        // Update current guess display
         function updateCurrentGuessDisplay() {
             currentGuessEl.innerHTML = '';
 
             for (let i = 0; i < 4; i++) {
                 const slot = document.createElement('div');
                 slot.className = 'h-16 bg-gray-100 rounded-lg flex items-center justify-center text-2xl font-bold border-2 border-gray-200 guess-slot cursor-pointer';
+                slot.dataset.index = i;
         
                 if (currentGuess[i]) {
                     slot.textContent = currentGuess[i];
@@ -192,22 +189,18 @@
 
                 // Add click event to clear this slot
                 slot.addEventListener('click', () => {
-                    if (!gameActive) return; // optional: ne dozvoli menjanje ako igra nije aktivna
-                    currentGuess[i] = undefined; // ili null ili ukloni element na toj poziciji
-                    // Napravi da currentGuess uvek ima 4 mesta, ali sa praznim poljima ako nema elementa
-                    currentGuess = currentGuess.map(el => el === undefined ? null : el);
-                    // Ukloni null vrednosti na prikazu, ali nemoj ih uklanjati iz niza da indeks ostane isti
+                    if (!gameActive) return;
+                    currentGuess[i] = null;
                     updateCurrentGuessDisplay();
                 });
 
                 currentGuessEl.appendChild(slot);
             }
     
-            // Enable submit button if guess is complete (sva 4 elementa su uneta i nisu null)
-            const completeGuess = currentGuess.length === 4 && currentGuess.every(el => el !== null && el !== undefined);
+            // Enable submit button if guess is complete
+            const completeGuess = currentGuess.every(el => el !== null);
             submitBtn.disabled = !completeGuess;
-      }
-
+        }
         
         // Update attempts display
         function updateAttemptsDisplay() {
@@ -247,7 +240,7 @@
         
         // Submit guess
         function submitGuess() {
-            if (!gameActive || currentGuess.length !== 4) return;
+            if (!gameActive || currentGuess.some(el => el === null)) return;
             
             // Decrement attempts
             attemptsLeft--;
@@ -260,7 +253,7 @@
             addGuessToBoard(isCorrect);
             
             // Clear current guess
-            currentGuess = [];
+            currentGuess = Array(4).fill(null);
             updateCurrentGuessDisplay();
             
             // Check game over conditions
@@ -386,90 +379,53 @@
                 container.classList.add('bg-yellow-100', 'border-2', 'border-yellow-400', 'pulse');
             }
         }
-
-        function addToCurrentGuess(element) {
-  // Pronađi prvo mesto koje je null (prazno)
-  const index = currentGuess.indexOf(null);
-  if (index !== -1) {
-    currentGuess[index] = element;
-    updateDisplay();
-  }
-}
-
-function removeFromCurrentGuess(index) {
-  if (index >= 0 && index < currentGuess.length) {
-    currentGuess[index] = null;
-    updateDisplay();
-  }
-}
-
-document.querySelectorAll('.element-btn').forEach(button => {
-  button.addEventListener('click', () => {
-    const element = button.textContent; // ili neki drugi identifikator
-    addToCurrentGuess(element);
-  });
-});
-
-// Pretpostavimo da svaki slot u currentGuess ima svoj element na stranici sa data-index atributom
-document.querySelectorAll('.currentGuess-slot').forEach(slot => {
-  slot.addEventListener('click', () => {
-    const index = parseInt(slot.getAttribute('data-index'));
-    removeFromCurrentGuess(index);
-  });
-});
-
-function updateDisplay() {
-  document.querySelectorAll('.currentGuess-slot').forEach((slot, i) => {
-    slot.textContent = currentGuess[i] ? currentGuess[i] : '';
-  });
-}
-       
+        
         // Show game over modal
         function showGameOver(won, timeOut) {
-    let message = '';
+            let message = '';
 
-    if (won) {
-        // Izračunaj bodove: preostalo vrijeme * 2 + preostali pokušaji * 20
-        score = (timer * 2) + (attemptsLeft * 20);
-        message = `Čestitamo! Pogodili ste tačnu kombinaciju. Osvojili ste ${score} bodova.`;
-    } else if (timeOut) {
-        score = 0;
-        message = `Isteklo je vrijeme! Niste pogodili kombinaciju. Osvojeni bodovi: ${score}`;
-    } else {
-        score = 0;
-        message = `Iskoristili ste sve pokušaje! Niste pogodili kombinaciju. Osvojeni bodovi: ${score}`;
-    }
+            if (won) {
+                score = (timer * 2) + (attemptsLeft * 20);
+                message = `Čestitamo! Pogodili ste tačnu kombinaciju. Osvojili ste ${score} bodova.`;
+            } else if (timeOut) {
+                score = 0;
+                message = `Isteklo je vrijeme! Niste pogodili kombinaciju. Osvojeni bodovi: ${score}`;
+            } else {
+                score = 0;
+                message = `Iskoristili ste sve pokušaje! Niste pogodili kombinaciju. Osvojeni bodovi: ${score}`;
+            }
 
-    // Prikaz modala
-    modalTitle.textContent = 'Kraj igre';
-    modalMessage.textContent = message;
-    gameOverModal.classList.remove('hidden');
+            modalTitle.textContent = 'Kraj igre';
+            modalMessage.textContent = message;
+            gameOverModal.classList.remove('hidden');
 
-    // Sačuvaj rezultat u localStorage
-    localStorage.setItem('skockoScore', score);
-    localStorage.setItem('skockoPlayed', 'true');
+            localStorage.setItem('skockoScore', score);
+            localStorage.setItem('skockoPlayed', 'true');
 
-    // Postavi preusmeravanje na dugme "Nova igra"
-    modalNewGameBtn.onclick = () => {
-        window.location.href = '../igra.html';
-    };
-}
-
+            modalNewGameBtn.onclick = () => {
+                window.location.href = '../igra.html';
+            };
+        }
         
         // Event listeners
         elementButtons.forEach(button => {
             button.addEventListener('click', () => {
-                if (!gameActive || currentGuess.length >= 4) return;
+                if (!gameActive) return;
                 
                 const element = button.getAttribute('data-element');
-                currentGuess.push(element);
-                updateCurrentGuessDisplay();
                 
-                // Add pulse animation to the button
-                button.classList.add('pulse');
-                setTimeout(() => {
-                    button.classList.remove('pulse');
-                }, 500);
+                // Find the first empty slot (null)
+                const emptyIndex = currentGuess.indexOf(null);
+                if (emptyIndex !== -1) {
+                    currentGuess[emptyIndex] = element;
+                    updateCurrentGuessDisplay();
+                    
+                    // Add pulse animation to the button
+                    button.classList.add('pulse');
+                    setTimeout(() => {
+                        button.classList.remove('pulse');
+                    }, 500);
+                }
             });
         });
         
@@ -482,46 +438,40 @@ function updateDisplay() {
             const key = e.key.toUpperCase();
             
             // Check for backspace
-            if (e.key === 'Backspace' && currentGuess.length > 0) {
-                currentGuess.pop();
-                updateCurrentGuessDisplay();
+            if (e.key === 'Backspace') {
+                // Find the last non-null element
+                for (let i = currentGuess.length - 1; i >= 0; i--) {
+                    if (currentGuess[i] !== null) {
+                        currentGuess[i] = null;
+                        updateCurrentGuessDisplay();
+                        return;
+                    }
+                }
                 return;
             }
             
             // Check for enter
-            if (e.key === 'Enter' && currentGuess.length === 4) {
+            if (e.key === 'Enter' && !currentGuess.includes(null)) {
                 submitGuess();
                 return;
             }
             
             // Check for valid element keys
-            if (currentGuess.length < 4) {
+            if (currentGuess.includes(null)) {
                 if (key === 'L' && !currentGuess.includes('Cl')) {
-                    currentGuess.push('Cl');
+                    const emptyIndex = currentGuess.indexOf(null);
+                    currentGuess[emptyIndex] = 'Cl';
                     updateCurrentGuessDisplay();
                 } else if (key === 'A' && !currentGuess.includes('Na')) {
-                    currentGuess.push('Na');
+                    const emptyIndex = currentGuess.indexOf(null);
+                    currentGuess[emptyIndex] = 'Na';
                     updateCurrentGuessDisplay();
                 } else if (elements.includes(key) && !currentGuess.includes(key)) {
-                    currentGuess.push(key);
+                    const emptyIndex = currentGuess.indexOf(null);
+                    currentGuess[emptyIndex] = key;
                     updateCurrentGuessDisplay();
                 }
             }
-
-            function zavrsiIgru() {
-  let score = izracunajPoene();
-  document.getElementById('rezultat').innerText = "Osvojili ste " + score + " poena!";
-
-  // Sačuvaj rezultat u localStorage
-  localStorage.setItem('skockoScore', score); 
-  localStorage.setItem('skockoPlayed', 'true'); 
-}
-
-// dugme za povratak na početni meni
-document.getElementById('btnToStart').onclick = function() {
-  window.location.href = '../igra.html';
-};
-
         });
         
         // Start the game
