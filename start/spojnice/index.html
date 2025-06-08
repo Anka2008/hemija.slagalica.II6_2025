@@ -145,42 +145,80 @@
     transform: translateY(-2px);
   }
   
-  @media (max-width: 600px) {
-    .game-container {
-      flex-direction: column;
-      padding: 20px;
-    }
-    
-    .item {
-        font-size: 14px;  /* Manji font na mobilnim */
-        min-width: 140px;  /* Smanjena širina */
-        padding: 10px 12px;  /* Manji padding */
-    }
-
-    .game-container {
-        overflow-x: auto;  /* Omogućava horizontalni scroll */
-        white-space: nowrap;  /* Sprečava prelamanje kolona */
-        padding-bottom: 20px;  /* Prostor za scroll */
-    }
-    .column {
-        display: inline-block;  /* Stavlja kolone u isti red */
-        vertical-align: top;
-    }
-    .item {
-        min-width: 160px;  /* Još uvek sprečava prelamanje */
-        white-space: nowrap;
-    }
-    
-    #timer {
-      font-size: 18px;
-      padding: 8px 12px;
-    }
+  
+@media (max-width: 768px) {
+  .game-container {
+    padding: 15px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    transform: scale(0.9);
+    transform-origin: top center;
   }
+
+  .columns-container {
+    gap: 8px;
+  }
+
+  .column {
+    width: 23%;
+  }
+
+  .tile {
+    height: 50px;
+    font-size: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .tile .cover {
+    font-size: 12px;
+  }
+
+  input[type="text"] {
+    padding: 6px;
+    font-size: 11px;
+  }
+
+  button {
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+
+  #timer {
+    font-size: 14px;
+    padding: 3px 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-container {
+    transform: scale(0.8);
+    padding: 10px;
+  }
+
+  .tile {
+    height: 40px;
+    font-size: 9px;
+  }
+
+  .tile .cover {
+    font-size: 10px;
+  }
+
+  input[type="text"] {
+    padding: 4px;
+    font-size: 10px;
+  }
+}
+
 </style>
 </head>
 <body>
 
 <div id="timer">90</div>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <div class="game-container">
   <div class="column" id="leftColumn"></div>
