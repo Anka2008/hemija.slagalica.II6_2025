@@ -223,57 +223,75 @@
     }
     
      /* Mobile optimizations */
-    @media (max-width: 600px) {
-  .game-container {
-    padding: 15px;
-    width: 95%;
+    /* Mobile optimizations */
+  @media (max-width: 600px) {
+    body {
+      transform: rotate(-90deg);
+      transform-origin: left top;
+      width: 100vh;
+      height: 100vw;
+      overflow-x: hidden;
+      position: absolute;
+      top: 100%;
+      left: 0;
+    }
+    
+    .game-container {
+      padding: 15px;
+      width: 90vh;
+      height: 90vw;
+    }
+    
+    .tile {
+      height: 60px;
+      font-size: 14px;
+    }
+    
+    input[type="text"] {
+      padding: 10px;
+      font-size: 14px;
+    }
+    
+    /* Adjust columns layout */
+    .columns-container {
+      display: flex;
+      flex-direction: row;
+      overflow-x: visible;
+      white-space: normal;
+    }
+    
+    .column {
+      display: flex;
+      flex-direction: column;
+      width: 23%;
+      margin-right: 10px;
+    }
+    
+    .input-group {
+      display: flex;
+      flex-direction: row;
+      overflow-x: visible;
+      white-space: normal;
+    }
+    
+    .input-column {
+      display: flex;
+      flex-direction: column;
+      width: 23%;
+      margin-right: 10px;
+    }
+    
+    #inputFinal {
+      max-width: 100%;
+    }
+    
+    #timer {
+      transform: rotate(90deg);
+      top: 10px;
+      right: auto;
+      left: 10px;
+    }
   }
-  
-  .tile {
-    height: 60px;
-    font-size: 14px;
-  }
-  
-  input[type="text"] {
-    padding: 10px;
-    font-size: 14px;
-  }
-  
-  /* Keep columns side by side with horizontal scrolling */
-  .columns-container {
-    overflow-x: auto;
-    white-space: nowrap;
-    display: block;
-    margin: 15px 0;
-    -webkit-overflow-scrolling: touch;
-  }
-  
-  .column {
-    display: inline-block;
-    vertical-align: top;
-    width: 180px; /* Fixed width for mobile */
-    margin-right: 10px;
-  }
-  
-  .input-group {
-    overflow-x: auto;
-    white-space: nowrap;
-    display: block;
-    -webkit-overflow-scrolling: touch;
-  }
-  
-  .input-column {
-    display: inline-block;
-    vertical-align: top;
-    width: 180px; /* Fixed width for mobile */
-    margin-right: 10px;
-    margin-bottom: 10px;
-  }
-  
-  #inputFinal {
-    max-width: 100%;
-  }
-}
   </style>
 </head>
 <body>
